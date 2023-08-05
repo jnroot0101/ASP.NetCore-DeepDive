@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseLibrary.API", "CourseLibrary.API\CourseLibrary.API.csproj", "{71B83715-A5A2-4753-A618-91E5A2200AAB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71B83715-A5A2-4753-A618-91E5A2200AAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71B83715-A5A2-4753-A618-91E5A2200AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71B83715-A5A2-4753-A618-91E5A2200AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71B83715-A5A2-4753-A618-91E5A2200AAB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
