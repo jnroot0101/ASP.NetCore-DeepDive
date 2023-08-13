@@ -15,7 +15,12 @@ public class CourseLibraryRepository : ICourseLibraryRepository
 
     public async Task<IEnumerable<Course>> GetCoursesAsync(Guid authorId)
     {
-        throw new NotImplementedException();
+        if (authorId == Guid.Empty) throw new ArgumentNullException(nameof(authorId));
+
+        return await _context.Courses
+            .Where(c => c.AuthorId == authorId)
+            .OrderBy(c => c.Title)
+            .ToListAsync();
     }
 
     public async Task<Course> GetCourseAsync(Guid authorId, Guid courseId)

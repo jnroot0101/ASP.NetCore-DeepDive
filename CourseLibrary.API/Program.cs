@@ -1,25 +1,14 @@
+using CourseLibrary.API;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var app = builder
+    .ConfigureServices()
+    .ConfigurePipeline();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// for demo purposes, delete the database & migrate on startup so
+// we can start with a clean state
+await app.ResetDatabaseAsync();
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
+// run the app
 app.Run();
