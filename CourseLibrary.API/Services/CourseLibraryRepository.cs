@@ -58,22 +58,38 @@ public class CourseLibraryRepository : ICourseLibraryRepository
 
     public async Task<IEnumerable<Author>> GetAuthorsAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Authors.ToListAsync();
     }
 
     public async Task<Author> GetAuthorAsync(Guid authorId)
     {
-        throw new NotImplementedException();
+        if (authorId == null) throw new ArgumentNullException(nameof(authorId));
+
+#pragma warning disable CS8603
+        return await _context.Authors.FirstOrDefaultAsync(a => a.Id == authorId);
+#pragma warning restore CS8603
     }
 
     public async Task<IEnumerable<Author>> GetAuthorsAsync(IEnumerable<Guid> authorIds)
     {
-        throw new NotImplementedException();
+        if (authorIds == null) throw new ArgumentNullException(nameof(authorIds));
+
+        return await _context.Authors.Where(a => authorIds.Contains(a.Id))
+            .OrderBy(a => a.FirstName)
+            .OrderBy(a => a.LastName)
+            .ToListAsync();
     }
 
     public void AddAuthor(Author author)
     {
-        throw new NotImplementedException();
+        if (author == null) throw new ArgumentNullException(nameof(author));
+
+        // the repository fills the id (instead of using identity columns)
+        author.Id = Guid.NewGuid();
+
+        foreach (var course in author.Courses) course.Id = Guid.NewGuid();
+
+        _context.Authors.Add(author);
     }
 
     public void UpdateAuthor(Author author)
@@ -88,11 +104,13 @@ public class CourseLibraryRepository : ICourseLibraryRepository
 
     public async Task<bool> AuthorExistsAsync(Guid authorId)
     {
-        throw new NotImplementedException();
+        if (authorId == Guid.Empty) throw new NotImplementedException(nameof(authorId));
+
+        return await _context.Authors.AnyAsync(a => a.Id == authorId);
     }
 
     public async Task<bool> SaveAsync()
     {
-        throw new NotImplementedException();
+        return await _context.SaveChangesAsync() >= 0;
     }
 }
